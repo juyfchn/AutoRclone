@@ -82,7 +82,7 @@ If you have already created Google Groups (**Step 2**) to manager your service a
 Otherwise, add service accounts directly into Team Drive.
 > Enable the Drive API in [Python Quickstart](https://developers.google.com/drive/api/v3/quickstart/python) 
 and save the `credentials.json` into project root path if you have not done it in **Step 2**.
-> - Add service accounts into your source Team Drive:
+> - Add service accounts into your source Team Drive(if you have the permission, or else see the step 5:for teamdrive to teamdrive):
 `python3 add_to_team_drive.py -d SharedTeamDriveSrcID`
 > - Add service accounts into your destination Team Drive:
 `python3 add_to_team_drive.py -d SharedTeamDriveDstID`
@@ -108,6 +108,12 @@ python3 rclone_sa_magic.py -s SourceID -d DestinationID -dp DestinationPathName 
 1. ```rclone --config rclone.conf size --disable ListR src001:```
 
 2. ```rclone --config rclone.conf size --disable ListR dst001:```
+
+#### For teamdrive(service accounts are not in it) to teamdrive(service accounts are in it) 
+
+- _modify the rclone_sa_magic.py from line 141 to line 143 first, you can get the data from  /root/.config/rclone/rclone.conf, then run the command_
+
+```python3 rclone_sa_magic_td.py -s SourceID -d DestinationID -dp DestinationPathName -b 1 -e 600```
 
 #### For local to Google Drive (need test)
 - [x] local to Team Drive
