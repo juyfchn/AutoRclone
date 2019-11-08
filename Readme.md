@@ -82,8 +82,6 @@ If you have already created Google Groups (**Step 2**) to manager your service a
 Otherwise, add service accounts directly into Team Drive.
 > Enable the Drive API in [Python Quickstart](https://developers.google.com/drive/api/v3/quickstart/python) 
 and save the `credentials.json` into project root path if you have not done it in **Step 2**.
-> - Add service accounts into your source Team Drive:
-`python3 add_to_team_drive.py -d SharedTeamDriveSrcID`
 > - Add service accounts into your destination Team Drive:
 `python3 add_to_team_drive.py -d SharedTeamDriveDstID`
 
@@ -91,14 +89,12 @@ Step 5. Start your task
 ---------------------------------
 Let us copy hundreds of TB resource using service accounts.
 
-#### For server side copy
-- [x] publicly shared folder to Team Drive
-- [x] Team Drive to Team Drive
-- [ ] publicly shared folder to publicly shared folder (with write privilege)
-- [ ] Team Drive to publicly shared folder
-```
-python3 rclone_sa_magic.py -s SourceID -d DestinationID -dp DestinationPathName -b 1 -e 600
-```
+#### For teamdrive(service accounts are not in it) to teamdrive(service accounts are in it) 
+
+- _modify the rclone_sa_magic.py from line 141 to line 143 first, you can get the data from  /root/.config/rclone/rclone.conf, then run the command_
+
+```python3 rclone_sa_magic.py -s SourceID -d DestinationID -dp DestinationPathName -b 1 -e 600```
+
 - _For meaning of above flags, please run python3 rclone_sa_magic.py -h_
 
 - _Add `--disable_list_r` if `rclone` [cannot read all contents of public shared folder](https://forum.rclone.org/t/rclone-cannot-see-all-files-folder-in-public-shared-folder/12351)._
