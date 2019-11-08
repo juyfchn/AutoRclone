@@ -137,12 +137,17 @@ def gen_rclone_cfg(args):
                     folder_or_team_drive_src = 'team_drive'
                 else:
                     sys.exit('Wrong length of team_drive_id or publicly shared root_folder_id')
-
+                # 输入自己源共享网盘信息
+                client_id_src = ""
+                client_secret_src = ""
+                token_src = ''
                 text_to_write = "[{}{:03d}]\n" \
                                 "type = drive\n" \
+                                "client_id = {}\n" \
+                                "client_secret = {}\n" \
                                 "scope = drive\n" \
-                                "service_account_file = {}\n" \
-                                "{} = {}\n".format('src', i + 1, filename, folder_or_team_drive_src, args.source_id)
+                                "token = {}\n" \
+                                "{} = {}\n".format('src', i + 1, client_id_src, client_secret_src, token_src, folder_or_team_drive_src, args.source_id)
 
                 # use path id instead path name
                 if args.source_path_id:
@@ -301,7 +306,7 @@ def main():
         if args.dry_run:
             rclone_cmd += "--dry-run "
         # --fast-list is default adopted in the latest rclone
-        rclone_cmd += "--drive-server-side-across-configs --rc --rc-addr=\"localhost:{}\" -vv --ignore-existing ".format(args.port)
+        rclone_cmd += "--rc --rc-addr=\"localhost:{}\" -vv --ignore-existing ".format(args.port)
         rclone_cmd += "--tpslimit {} --transfers {} --drive-chunk-size 32M ".format(TPSLIMIT, TRANSFERS)
         if args.disable_list_r:
             rclone_cmd += "--disable ListR "
